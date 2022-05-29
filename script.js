@@ -3,6 +3,7 @@ let currentIntArr;
 let nextInt = 10;
 let PositiveOrNegative = false;
 let plusToken = false;
+let timesToken = false;
 let minusToken = false;
 
 const display = document.getElementById('displayScreen')
@@ -22,12 +23,15 @@ const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) =>
 })
 const plus = document.getElementById('+').addEventListener('click', (e) => {
     plusToken = !plusToken
-    nextInt = currentInt
-    currentInt = 0
-    updateDisplay()
+    newOperation()
+})
+const times = document.getElementById('x').addEventListener('click', (e) => {
+    timesToken = !timesToken
+    newOperation()
 })
 const minus = document.getElementById('-').addEventListener('click', (e) => {
     minusToken = !minusToken
+    newOperation()
 })
 const equals = document.getElementById('=').addEventListener('click', (e)=> {
     if (plusToken === true) {
@@ -36,31 +40,86 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
     }
     if (minusToken === true) {
         minusToken = false;
-        currentInt -= nextInt
+        currentInt = nextInt - currentInt
+    }
+    if (timesToken === true) {
+        timesToken = false;
+        currentInt *= nextInt;
     }
     
     updateDisplay();
 })
+const zero = document.getElementById('number0').addEventListener('click', (e) => {
+    newInt(0);
+})
 const one = document.getElementById('number1').addEventListener('click', (e) => {
+    if (PositiveOrNegative = true){
+        newInt(1);   
+    }
+    else if (PositiveOrNegative = false){
+        newInt(-1);
+
+    }    
+})
+const two = document.getElementById('number2').addEventListener('click', (e) => {
+    newInt(2);
+})
+const three = document.getElementById('number3').addEventListener('click', (e) => {
+    newInt(3);
+})
+const four = document.getElementById('number4').addEventListener('click', (e) => {
+    newInt(4);
+})
+const five = document.getElementById('number5').addEventListener('click', (e) => {
+    newInt(5);
+})
+const six = document.getElementById('number6').addEventListener('click', (e) => {
+    newInt(6);
+})
+const seven = document.getElementById('number7').addEventListener('click', (e) => {
+    newInt(7);
+})
+const eight = document.getElementById('number8').addEventListener('click', (e) => {
+    newInt(8);
+})
+const nine = document.getElementById('number9').addEventListener('click', (e) => {
+    newInt(9);
+})
+
+
+
+function newOperation() {
+    nextInt = currentInt
+    currentInt = 0
+    updateDisplay()
+}
+
+function newInt(num) {
     if (typeof currentInt !== 'object'){
         currentIntArr = String(currentInt).split("").map((currentInt) => {
             return Number(currentInt)
         })
-				currentIntArr.push(1)
+                currentIntArr.push(num)
         currentInt = +currentIntArr.join("");
         updateDisplay()
     }
     else if (typeof currentInt === 'object'){
-        currentInt.push(1)
+        currentInt.push(num)
         currentInt = +currentInt.join("");
         console.log(currentInt)
         updateDisplay()
     }
-})
-console.log("test")
-
+  }
 
 
 function updateDisplay() {
-    display.innerHTML = currentInt;
+    if (currentInt < 9007199254740991){
+        display.innerHTML = (currentInt);
+        console.log((currentInt))
+    }
+    else if (currentInt >= 9007199254740991){
+        display.innerHTML = parseFloat(currentInt);
+        console.log(parseFloat(currentInt))
+    }
+    
 }
