@@ -57,6 +57,7 @@ const one = document.getElementById('number1').addEventListener('click', (e) => 
         updateDisplay()
     }
 })
+console.log("test")
 
 
 
