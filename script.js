@@ -1,7 +1,8 @@
 let currentInt = [];
 let currentIntArr;
 let nextInt = 10;
-let PositiveOrNegative = false;
+let PositiveOrNegative = true;
+let divideToken = false;
 let plusToken = false;
 let timesToken = false;
 let minusToken = false;
@@ -13,6 +14,7 @@ const AC = document.getElementById('AC').addEventListener('click', (e) => {
 })
 const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) => {
     PositiveOrNegative = !PositiveOrNegative
+
     if (PositiveOrNegative === true){
         currentInt = Math.abs(currentInt)
     }
@@ -20,6 +22,10 @@ const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) =>
         currentInt = -Math.abs(currentInt)
     };
     updateDisplay()
+})
+const divide = document.getElementById('/').addEventListener('click', (e) => {
+    divideToken = !divideToken
+    newOperation()
 })
 const plus = document.getElementById('+').addEventListener('click', (e) => {
     plusToken = !plusToken
@@ -34,6 +40,10 @@ const minus = document.getElementById('-').addEventListener('click', (e) => {
     newOperation()
 })
 const equals = document.getElementById('=').addEventListener('click', (e)=> {
+    if (divideToken === true) {
+        divideToken = false;
+        currentInt = nextInt / currentInt;
+    }
     if (plusToken === true) {
         plusToken = false;
         currentInt += nextInt;
@@ -85,6 +95,9 @@ const eight = document.getElementById('number8').addEventListener('click', (e) =
 const nine = document.getElementById('number9').addEventListener('click', (e) => {
     newInt(9);
 })
+const decimal = document.getElementById('decimal').addEventListener('click', (e) => {
+    addDecimalPlace(currentInt)
+})
 
 
 
@@ -106,20 +119,29 @@ function newInt(num) {
     else if (typeof currentInt === 'object'){
         currentInt.push(num)
         currentInt = +currentInt.join("");
-        console.log(currentInt)
         updateDisplay()
     }
   }
 
+  function addDecimalPlace(num) {
+    let int = String(currentInt).split("").map((currentInt) => {
+        return (currentInt)
+    })
+    console.log(int)
+    let pushDecimal = int.push('.')
+    console.log(int)
+    currentInt = +int.join("");
+    console.log(currentInt)
+
+    updateDisplay()
+  }
 
 function updateDisplay() {
     if (currentInt < 9007199254740991){
         display.innerHTML = (currentInt);
-        console.log((currentInt))
     }
     else if (currentInt >= 9007199254740991){
         display.innerHTML = parseFloat(currentInt);
-        console.log(parseFloat(currentInt))
     }
     
 }
