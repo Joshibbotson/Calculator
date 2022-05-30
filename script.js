@@ -10,6 +10,7 @@ let minusToken = false;
 const display = document.getElementById('displayScreen')
 const AC = document.getElementById('AC').addEventListener('click', (e) => {
     currentInt = 0;
+    PositiveOrNegative = true;
     updateDisplay();
 })
 const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) => {
@@ -110,7 +111,7 @@ function newOperation() {
 
 function newInt(num) {
     if (typeof currentInt !== 'object'){
-        currentIntArr = String(currentInt).split("").map((currentInt) => {
+        currentIntArr = String(currentInt).split(" ").map((currentInt) => {
             return Number(currentInt)
         })
                 currentIntArr.push(num)
@@ -138,11 +139,21 @@ function newInt(num) {
   }
 
 function updateDisplay() {
-    if (currentInt < 9007199254740991){
-        display.innerHTML = (currentInt);
+    if (currentInt >= 0){
+        if (currentInt < 9007199254740991){
+            display.innerHTML = (currentInt);
+        }
+        else if (currentInt >= 9007199254740991){
+            display.innerHTML = parseFloat(currentInt);
+        }
     }
-    else if (currentInt >= 9007199254740991){
-        display.innerHTML = parseFloat(currentInt);
+     else if (currentInt < 0) {
+            PositiveOrNegative = false;
+        if (currentInt < 9007199254740991){
+            display.innerHTML = (currentInt);
+        }
+        else if (currentInt >= 9007199254740991){
+            display.innerHTML = parseFloat(currentInt);
+        }
     }
-    
 }
