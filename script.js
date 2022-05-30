@@ -104,6 +104,7 @@ const decimal = document.getElementById('decimal').addEventListener('click', (e)
 function newOperation() {
     nextInt = currentInt
     currentInt = 0
+    PositiveOrNegative = !PositiveOrNegative;
     updateDisplay()
 }
 
