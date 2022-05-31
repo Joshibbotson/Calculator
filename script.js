@@ -6,6 +6,7 @@ let divideToken = false;
 let plusToken = false;
 let timesToken = false;
 let minusToken = false;
+let forceEqualsToken = false;
 
 const display = document.getElementById('displayScreen')
 const AC = document.getElementById('AC').addEventListener('click', (e) => {
@@ -15,7 +16,10 @@ const AC = document.getElementById('AC').addEventListener('click', (e) => {
 })
 const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) => {
     PositiveOrNegative = !PositiveOrNegative
-
+    if (currentInt === 0) {
+        PositiveOrNegative = true
+    }
+    else {
     if (PositiveOrNegative === true){
         currentInt = Math.abs(currentInt)
     }
@@ -23,6 +27,7 @@ const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) =>
         currentInt = -Math.abs(currentInt)
     };
     updateDisplay()
+}
 })
 const divide = document.getElementById('/').addEventListener('click', (e) => {
     divideToken = !divideToken
@@ -32,7 +37,7 @@ const plus = document.getElementById('+').addEventListener('click', (e) => {
     plusToken = !plusToken
     newOperation()
 })
-const times = document.getElementById('x').addEventListener('click', (e) => {
+const times = document.getElementById('*').addEventListener('click', (e) => {
     timesToken = !timesToken
     newOperation()
 })
@@ -41,6 +46,27 @@ const minus = document.getElementById('-').addEventListener('click', (e) => {
     newOperation()
 })
 const equals = document.getElementById('=').addEventListener('click', (e)=> {
+    PositiveOrNegative = true;
+    if (divideToken === true) {
+        divideToken = false;
+        currentInt = Number(nextInt) / Number(currentInt);
+    }
+    if (plusToken === true) {
+        plusToken = false;
+        currentInt += Number(nextInt);
+    }
+    if (minusToken === true) {
+        minusToken = false;
+        currentInt = Number(nextInt) - Number(currentInt)
+    }
+    else if (timesToken === true) {
+        timesToken = false;
+        currentInt *= Number(nextInt);
+    }
+    
+    updateDisplay();
+})
+const percentage = document.getElementById('%').addEventListener('click', (e) => {
     if (divideToken === true) {
         divideToken = false;
         currentInt = nextInt / currentInt;
@@ -60,48 +86,21 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
     
     updateDisplay();
 })
-const zero = document.getElementById('number0').addEventListener('click', (e) => {
-    newInt(0);
+const decimal = document.getElementById('.').addEventListener('click', (e) => {
+    addDecimalPlace()
 })
-const one = document.getElementById('number1').addEventListener('click', (e) => {
-    if (PositiveOrNegative = true){
-        newInt(1);   
-    }
-    else if (PositiveOrNegative = false){
-        newInt(-1);
+/////////////////////////
+let i = 0;
+let buttons = document.getElementById("0")
 
-    }    
-})
-const two = document.getElementById('number2').addEventListener('click', (e) => {
-    newInt(2);
-})
-const three = document.getElementById('number3').addEventListener('click', (e) => {
-    newInt(3);
-})
-const four = document.getElementById('number4').addEventListener('click', (e) => {
-    newInt(4);
-})
-const five = document.getElementById('number5').addEventListener('click', (e) => {
-    newInt(5);
-})
-const six = document.getElementById('number6').addEventListener('click', (e) => {
-    newInt(6);
-})
-const seven = document.getElementById('number7').addEventListener('click', (e) => {
-    newInt(7);
-})
-const eight = document.getElementById('number8').addEventListener('click', (e) => {
-    newInt(8);
-})
-const nine = document.getElementById('number9').addEventListener('click', (e) => {
-    newInt(9);
-})
-const decimal = document.getElementById('decimal').addEventListener('click', (e) => {
-    addDecimalPlace(currentInt)
-})
-
-
-
+while (buttons) {
+    buttons.addEventListener("click", (e) => {
+        num = e.target.id
+        newInt(num)
+    })
+    buttons = document.getElementById((++i))
+}
+////////////////////////
 function newOperation() {
     nextInt = currentInt
     currentInt = 0
@@ -109,10 +108,10 @@ function newOperation() {
     updateDisplay()
 }
 
-function newInt(num) {
+  function newInt(num) {
     if (typeof currentInt !== 'object'){
         currentIntArr = String(currentInt).split(" ").map((currentInt) => {
-            return Number(currentInt)
+            return currentInt
         })
                 currentIntArr.push(num)
         currentInt = +currentIntArr.join("");
@@ -123,20 +122,18 @@ function newInt(num) {
         currentInt = +currentInt.join("");
         updateDisplay()
     }
-  }
+}
 
-  function addDecimalPlace(num) {
+  function addDecimalPlace() {
     let int = String(currentInt).split("").map((currentInt) => {
         return (currentInt)
     })
-    console.log(int)
-    let pushDecimal = int.push('.')
-    console.log(int)
-    currentInt = +int.join("");
-    console.log(currentInt)
+    currentInt = int.push('.')
+    currentInt = int.join("");
+    console.log(typeof(currentInt))
 
     updateDisplay()
-  }
+}
 
 function updateDisplay() {
     if (currentInt >= 0){
