@@ -10,7 +10,7 @@ let forceEqualsToken = false;
 
 const display = document.getElementById('displayScreen')
 const AC = document.getElementById('AC').addEventListener('click', (e) => {
-    currentInt = 0;
+    currentInt = [0];
     PositiveOrNegative = true;
     updateDisplay();
 })
@@ -47,6 +47,8 @@ const minus = document.getElementById('-').addEventListener('click', (e) => {
 })
 const equals = document.getElementById('=').addEventListener('click', (e)=> {
     PositiveOrNegative = true;
+    currentInt = Number(currentInt)
+    nextInt = Number(nextInt)
     if (divideToken === true) {
         divideToken = false;
         currentInt = Number(nextInt) / Number(currentInt);
@@ -90,20 +92,22 @@ const decimal = document.getElementById('.').addEventListener('click', (e) => {
     addDecimalPlace()
 })
 /////////////////////////
-let i = 0;
-let buttons = document.getElementById("0")
+let buttons;
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
-while (buttons) {
-    buttons.addEventListener("click", (e) => {
-        num = e.target.id
-        newInt(num)
+arr.forEach(num => {
+    buttons = document.getElementById((num)).addEventListener('click', (e)=>{
+        btnChoice = e.target.id;
+        newInt(btnChoice)
     })
-    buttons = document.getElementById((++i))
-}
+    console.log(buttons)
+    
+});
+
 ////////////////////////
 function newOperation() {
     nextInt = currentInt
-    currentInt = 0
+    currentInt = [0]
     PositiveOrNegative = !PositiveOrNegative;
     updateDisplay()
 }
@@ -114,25 +118,28 @@ function newOperation() {
             return currentInt
         })
                 currentIntArr.push(num)
-        currentInt = +currentIntArr.join("");
+        currentInt = currentIntArr.join("");
         updateDisplay()
     }
     else if (typeof currentInt === 'object'){
-        currentInt.push(num)
-        currentInt = +currentInt.join("");
+        currentInt = num
         updateDisplay()
     }
 }
 
   function addDecimalPlace() {
-    let int = String(currentInt).split("").map((currentInt) => {
-        return (currentInt)
-    })
-    currentInt = int.push('.')
-    currentInt = int.join("");
-    console.log(typeof(currentInt))
+    if (currentInt.includes(".")) {
+        return
+    }
 
-    updateDisplay()
+    else {
+        let int = String(currentInt).split("").map((currentInt) => {
+            return currentInt
+        })
+        currentInt = int.push('.')
+        currentInt = int.join("");
+        updateDisplay()
+    }
 }
 
 function updateDisplay() {
