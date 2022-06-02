@@ -104,24 +104,6 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
     updateDisplay();
 })
 const percentage = document.getElementById('%').addEventListener('click', (e) => {
-    if (divideToken === true) {
-        divideToken = false;
-        currentInt = nextInt / currentInt;
-    }
-    if (plusToken === true) {
-        plusToken = false;
-        currentInt += nextInt;
-    }
-    if (minusToken === true) {
-        minusToken = false;
-        currentInt = nextInt - currentInt
-    }
-    if (timesToken === true) {
-        timesToken = false;
-        currentInt *= nextInt;
-    }
-    
-    updateDisplay();
 })
 const decimal = document.getElementById('.').addEventListener('click', (e) => {
     addDecimalPlace()
@@ -137,7 +119,7 @@ function newOperation() {
 
 }
 
-  function newInt(num) {
+function newInt(num) {
     if (typeof currentInt !== 'object'){
         currentIntArr = String(currentInt).split(" ").map((currentInt) => {
             return currentInt
@@ -156,7 +138,7 @@ function newOperation() {
     }
 }
 
-  function addDecimalPlace() {
+function addDecimalPlace() {
     if (String(currentInt).includes(".")) {
         return
     }
