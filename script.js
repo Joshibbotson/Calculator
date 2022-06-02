@@ -11,6 +11,7 @@ let forceEqualsToken = false;
 
 /////////////////////////
 let buttons;
+let keys;
 let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 arr.forEach(num => {
@@ -18,9 +19,20 @@ arr.forEach(num => {
         btnChoice = e.target.id;
         newInt(btnChoice)
     })
-    console.log(buttons)
-    
 });
+
+// WORK IN PROGRESS TO GET KEYBOARD WORKING BELOW//
+// arr.forEach(num => {
+    
+//         keys= document.getElementById((num)).addEventListener('keydown', (e) => {
+//             let keyInput = e.key;
+//         if (typeof(keyInput !== 'number')){
+//             keyChoice = e.key
+//             newInt(keyChoice)}
+//         else {return}
+//     })
+    
+// });
 
 ////////////////////////
 
@@ -32,6 +44,10 @@ const AC = document.getElementById('AC').addEventListener('click', (e) => {
     updateDisplay();
 })
 const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) => {
+    if (currentInt == 0) {
+        return
+    }
+    else {
     PositiveOrNegative = !PositiveOrNegative
     if (currentInt === 0) {
         PositiveOrNegative = true
@@ -45,6 +61,7 @@ const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) =>
     };
     updateDisplay()
 }
+    }
 })
 const divide = document.getElementById('/').addEventListener('click', (e) => {
     operation = '/'
@@ -125,11 +142,15 @@ function newOperation() {
         currentIntArr = String(currentInt).split(" ").map((currentInt) => {
             return currentInt
         })
-                currentIntArr.push(num)
+        currentIntArr.push(num)
         currentInt = currentIntArr.join("");
         updateDisplay()
     }
+    
     else if (typeof currentInt === 'object'){
+        if (currentInt = [] && num == 0) {
+            return currentInt = []
+        }
         currentInt = num
         updateDisplay()
     }
@@ -138,6 +159,15 @@ function newOperation() {
   function addDecimalPlace() {
     if (String(currentInt).includes(".")) {
         return
+    }
+
+    if (currentInt[0] = 0) {
+        let int = String(currentInt).split("").map((currentInt) => {
+            return currentInt
+        })
+        currentInt = int.push('0.')
+        currentInt = int.join("");
+        updateDisplay()
     }
 
     else {
@@ -159,7 +189,7 @@ function updateDisplay() {
             display.innerHTML = parseFloat(currentInt);
         }
     }
-     else if (currentInt < 0) {
+    if (currentInt < 0) {
             PositiveOrNegative = false;
         if (currentInt < 9007199254740991){
             display.innerHTML = (currentInt);
@@ -167,5 +197,8 @@ function updateDisplay() {
         else if (currentInt >= 9007199254740991){
             display.innerHTML = parseFloat(currentInt);
         }
+    }
+    else {
+        display.innerHTML = currentInt;
     }
 }
