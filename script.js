@@ -104,6 +104,32 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
     updateDisplay();
 })
 const percentage = document.getElementById('%').addEventListener('click', (e) => {
+    PositiveOrNegative = true;
+    currentInt = Number(currentInt)
+    nextInt = Number(nextInt)
+
+    switch(operation) {
+        case undefined:
+                operation = undefined;
+                currentInt = Number(currentInt) / 100
+                break
+        case '/':
+            operation = undefined;
+            currentInt = Number(nextInt) / 100
+            break;
+        case '+':
+            operation = undefined;
+            currentInt = Number(nextInt) + (Number(nextInt)/100)* Number(currentInt) 
+            break;
+        case '-':
+            operation = undefined;
+            currentInt = Number(nextInt) - (Number(nextInt)/100)* Number(currentInt) 
+            break;
+        case '*':
+            operation = undefined;
+            currentInt = (Number(nextInt)/100)* Number(currentInt)  
+    }
+    updateDisplay();
 })
 const decimal = document.getElementById('.').addEventListener('click', (e) => {
     addDecimalPlace()
