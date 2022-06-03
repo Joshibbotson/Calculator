@@ -12,7 +12,8 @@ let forceEqualsToken = false;
 /////////////////////////
 let buttons;
 let keys;
-let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,]
+
 
 arr.forEach(num => {
     buttons = document.getElementById((num)).addEventListener('click', (e)=>{
@@ -22,17 +23,17 @@ arr.forEach(num => {
 });
 
 // WORK IN PROGRESS TO GET KEYBOARD WORKING BELOW//
-// arr.forEach(num => {
-    
-//         keys= document.getElementById((num)).addEventListener('keydown', (e) => {
-//             let keyInput = e.key;
-//         if (typeof(keyInput !== 'number')){
-//             keyChoice = e.key
-//             newInt(keyChoice)}
-//         else {return}
-//     })
-    
-// });
+
+
+arr.forEach(num => {
+    keys= document.getElementById((num)).addEventListener('keydown', (e) => {
+        let keyInput = Number(e.key);
+    if (arr.includes(keyInput)){
+        // keyChoice = e.key
+        newInt(keyInput)}
+    })
+});
+
 
 ////////////////////////
 
