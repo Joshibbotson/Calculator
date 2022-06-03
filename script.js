@@ -1,42 +1,56 @@
+//Global variables//
 let currentInt = [];
 let currentIntArr;
-let nextInt = 10;
+let nextInt = null;
 let PositiveOrNegative = true;
 let operation;
-let divideToken = false;
-let plusToken = false;
-let timesToken = false;
-let minusToken = false;
 let forceEqualsToken = false;
 
-/////////////////////////
+//Assignment of operations and number buttons//
 let buttons;
-let keys;
-let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,]
+let opButtons;
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '+', '-', '/', '*']
+let opArr = ['+', '-', '/', '*']
 
+opArr.forEach(op => {
+    opButtons = document.getElementById((op)).addEventListener('click', (e) => {
+        let newOp = e.target.id;
+        operation = newOp
+        newOperation()
+    })
+});
 
 arr.forEach(num => {
     buttons = document.getElementById((num)).addEventListener('click', (e)=>{
         btnChoice = e.target.id;
+        if (btnChoice < 11){
         newInt(btnChoice)
+    }
+    else{
+        display.innerHTML = btnChoice
+    }
     })
 });
 
 // WORK IN PROGRESS TO GET KEYBOARD WORKING BELOW//
-
-
-arr.forEach(num => {
-    keys= document.getElementById((num)).addEventListener('keydown', (e) => {
-        let keyInput = Number(e.key);
-    if (arr.includes(keyInput)){
-        // keyChoice = e.key
-        newInt(keyInput)}
-    })
-});
-
-
+// let keys;
+// arr.forEach(num => {
+//     keys= document.getElementById((num)).addEventListener('keydown', (e) => {
+//         let keyInput = e.key;
+//     if (keyInput < 10 && arr.includes(keyInput)){
+//         newInt(keyInput)
+//     }
+//     if (typeof(keyInput) !== 'number' && arr.includes(keyInput)){
+//         operation = keyInput
+//         newOperation()
+//     }
+//     else {
+//         return
+//     }
+//     })
+// });
 ////////////////////////
-
+//Assignment of display screen and all other buttons with unique requirements when clicked.//
 const display = document.getElementById('displayScreen')
 const AC = document.getElementById('AC').addEventListener('click', (e) => {
     currentInt = [0];
@@ -64,22 +78,7 @@ const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) =>
 }
     }
 })
-const divide = document.getElementById('/').addEventListener('click', (e) => {
-    operation = '/'
-    newOperation()
-})
-const plus = document.getElementById('+').addEventListener('click', (e) => {
-    operation = '+'
-    newOperation()
-})
-const times = document.getElementById('*').addEventListener('click', (e) => {
-    operation = '*'
-    newOperation()
-})
-const minus = document.getElementById('-').addEventListener('click', (e) => {
-    operation = '-'
-    newOperation()
-})
+
 const equals = document.getElementById('=').addEventListener('click', (e)=> {
     PositiveOrNegative = true;
     currentInt = Number(currentInt)
@@ -111,9 +110,16 @@ const percentage = document.getElementById('%').addEventListener('click', (e) =>
 
     switch(operation) {
         case undefined:
-                operation = undefined;
+           if (currentInt != 0) {
                 currentInt = Number(currentInt) / 100
                 break
+            }
+            else {
+                currentInt = Number(currentInt) / 100
+                currentInt = [0]
+                break
+            }
+            
         case '/':
             operation = undefined;
             currentInt = Number(nextInt) / 100
