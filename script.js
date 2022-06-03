@@ -9,12 +9,15 @@ let forceEqualsToken = false;
 //Assignment of operations and number buttons//
 let buttons;
 let opButtons;
-let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '+', '-', '/', '*']
-let opArr = ['+', '-', '/', '*']
+let arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, '+', '-', '÷', 'x']
+let opArr = ['+', '-', '÷', 'x']
 
 opArr.forEach(op => {
     opButtons = document.getElementById((op)).addEventListener('click', (e) => {
         let newOp = e.target.id;
+        if (operation = newOp) {
+            newOperation()
+        }
         operation = newOp
         newOperation()
     })
@@ -85,7 +88,7 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
     nextInt = Number(nextInt)
 
     switch(operation) {
-        case '/':
+        case '÷':
             operation = undefined;
             currentInt = Number(nextInt) / Number(currentInt);
             break;
@@ -97,7 +100,7 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
             operation = undefined;
             currentInt = Number(nextInt) - Number(currentInt)
             break;
-        case '*':
+        case 'x':
             operation = undefined;
             currentInt *= Number(nextInt);
     }
@@ -120,7 +123,7 @@ const percentage = document.getElementById('%').addEventListener('click', (e) =>
                 break
             }
             
-        case '/':
+        case '÷':
             operation = undefined;
             currentInt = Number(nextInt) / 100
             break;
@@ -132,7 +135,7 @@ const percentage = document.getElementById('%').addEventListener('click', (e) =>
             operation = undefined;
             currentInt = Number(nextInt) - (Number(nextInt)/100)* Number(currentInt) 
             break;
-        case '*':
+        case 'x':
             operation = undefined;
             currentInt = (Number(nextInt)/100)* Number(currentInt)  
     }
@@ -141,14 +144,14 @@ const percentage = document.getElementById('%').addEventListener('click', (e) =>
 const decimal = document.getElementById('.').addEventListener('click', (e) => {
     addDecimalPlace()
 })
-///////////////////// Functions ////////////////
+////////////// Functions ////////////////
 function newOperation() {
     if (currentInt != 0){
-    nextInt = currentInt
-    currentInt = [0]
-    PositiveOrNegative = !PositiveOrNegative;
-    updateDisplay()
-}
+        nextInt = currentInt
+        currentInt = [0]
+        PositiveOrNegative = !PositiveOrNegative;
+        updateDisplay()
+    }
 
 }
 
@@ -201,7 +204,7 @@ function updateDisplay() {
             display.innerHTML = (currentInt);
         }
         else if (currentInt >= 9007199254740991){
-            display.innerHTML = parseFloat(currentInt);
+            display.innerHTML = BigInt(currentInt);
         }
     }
     if (currentInt < 0) {
@@ -210,7 +213,7 @@ function updateDisplay() {
             display.innerHTML = (currentInt);
         }
         else if (currentInt >= 9007199254740991){
-            display.innerHTML = parseFloat(currentInt);
+            display.innerHTML = BigInt(currentInt);
         }
     }
     else {
