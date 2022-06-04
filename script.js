@@ -111,6 +111,9 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
 
 })
 
+const deleteBtn = document.getElementById('delete').addEventListener('click', (e) => {
+    deleteInt()
+})
 
 const percentage = document.getElementById('%').addEventListener('click', (e) => {
     PositiveOrNegative = true;
@@ -157,7 +160,6 @@ function newOperation() {
         currentInt = []
         PositiveOrNegative = !PositiveOrNegative;
         updateDisplay()
-        console.log("currentInt != 0")
     }
     else {
         return
@@ -179,6 +181,31 @@ function newInt(num) {
                 currentInt = currentIntArr.join("");
                 updateDisplay()
             }
+
+    }
+    else if (typeof currentInt === 'object'){
+        if (currentInt = [] && num == 0) {
+            return currentInt = []
+        }
+        currentInt = num
+        updateDisplay()
+    }
+}
+
+function deleteInt() {
+    if (typeof currentInt !== 'object'){
+        currentIntArr = String(currentInt).split("").map((currentInt) => {
+            return currentInt
+        })
+        if (currentIntArr.length > 1){
+            currentIntArr.pop()
+            currentInt = currentIntArr.join("");
+            updateDisplay()
+        }
+        else {
+            currentInt = []
+            display.innerHTML = 0;
+        }
 
     }
     else if (typeof currentInt === 'object'){
