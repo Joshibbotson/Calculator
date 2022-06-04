@@ -56,10 +56,12 @@ arr.forEach(num => {
 //Assignment of display screen and all other buttons with unique requirements when clicked.//
 const display = document.getElementById('displayScreen')
 const AC = document.getElementById('AC').addEventListener('click', (e) => {
-    currentInt = [0];
+    display.innerHTML = 0
+    currentInt = [];
+    nextInt = null
     operation = undefined;
     PositiveOrNegative = true;
-    updateDisplay();
+
 })
 const posOrNeg = document.getElementById('+/-').addEventListener('click', (e) => {
     if (currentInt == 0) {
@@ -104,8 +106,12 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
             operation = undefined;
             currentInt *= Number(nextInt);
     }
+    nextInt = null;
     updateDisplay();
+
 })
+
+
 const percentage = document.getElementById('%').addEventListener('click', (e) => {
     PositiveOrNegative = true;
     currentInt = Number(currentInt)
@@ -148,11 +154,14 @@ const decimal = document.getElementById('.').addEventListener('click', (e) => {
 function newOperation() {
     if (currentInt != 0){
         nextInt = currentInt
-        currentInt = [0]
+        currentInt = []
         PositiveOrNegative = !PositiveOrNegative;
         updateDisplay()
+        console.log("currentInt != 0")
     }
-
+    else {
+        return
+    }
 }
 
 function newInt(num) {
@@ -160,11 +169,18 @@ function newInt(num) {
         currentIntArr = String(currentInt).split(" ").map((currentInt) => {
             return currentInt
         })
-        currentIntArr.push(num)
-        currentInt = currentIntArr.join("");
-        updateDisplay()
+            currentIntArr.push(num)
+            if (currentIntArr[0] === '0') {
+                currentIntArr.shift()
+                currentInt = currentIntArr.join("");
+                updateDisplay()
+            }
+            else {
+                currentInt = currentIntArr.join("");
+                updateDisplay()
+            }
+
     }
-    
     else if (typeof currentInt === 'object'){
         if (currentInt = [] && num == 0) {
             return currentInt = []
