@@ -23,7 +23,7 @@ body {
     border: 2px solid black;
     border-radius: 10px;
     overflow: hidden;
-    transform: scale(1.5);
+    transform: scale(1.4);
     box-shadow: 5px 5px 10px 0px rgb(120, 120, 120);
 }
 

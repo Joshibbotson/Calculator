@@ -91,23 +91,35 @@ const equals = document.getElementById('=').addEventListener('click', (e)=> {
 
     switch(operation) {
         case '÷':
+            if (currentInt === 0) {
+                operation = undefined;
+                display.innerHTML = "404 brain not found" 
+                currentInt = []
+                break;
+            }
             operation = undefined;
             currentInt = Number(nextInt) / Number(currentInt);
+            nextInt = null;
+            updateDisplay();
             break;
         case '+':
             operation = undefined;
             currentInt += Number(nextInt);
+            nextInt = null;
+            updateDisplay();
             break;
         case '-':
             operation = undefined;
             currentInt = Number(nextInt) - Number(currentInt)
+            nextInt = null;
+             updateDisplay();
             break;
         case 'x':
             operation = undefined;
             currentInt *= Number(nextInt);
+            nextInt = null;
+            updateDisplay();
     }
-    nextInt = null;
-    updateDisplay();
 
 })
 
